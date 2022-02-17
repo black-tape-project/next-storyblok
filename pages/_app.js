@@ -1,10 +1,10 @@
-import "../styles/index.css";
-
 import { useEffect } from "react";
 
 import NextRouter from "next/router";
 
 import NProgress from "nprogress";
+
+import "../styles/index.css";
 
 function NextApp({ Component, pageProps }) {
     useEffect(() => {
