@@ -40,6 +40,3 @@ yarn-error.log*
 
 # vs code
 .vscode
-
-# github
-/.github
