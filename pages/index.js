@@ -14,7 +14,7 @@ export default function Home() {
             </Head>
 
             <main>
-                <h1 className="text-3xl font-bold underline">
+                <h1 className="font-bold underline lg:text-3xl">
                     Welcome to <a href="https://nextjs.org">Next.js!</a>
                 </h1>
 
@@ -22,7 +22,7 @@ export default function Home() {
                     Get started by editing <code>pages/index.js</code>
                 </p>
 
-                <div className="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 border-t border-b border-black">
+                <div className="grid gap-4 border-y border-black sm:grid-cols-2 lg:grid-cols-4">
                     <a href="https://nextjs.org/docs">
                         <h2>Documentation &rarr;</h2>
                         <p>
