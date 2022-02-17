@@ -38,5 +38,5 @@ yarn-error.log*
 # vercel
 .vercel
 
-# temp
-/.github
+# vs code
+.vscode
