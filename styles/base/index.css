@@ -1,0 +1,75 @@
+/*
+
+* Stylesheet (CSS)
+- version (0.0.1)
+
+"styles/index.css"
+
+*/
+
+@tailwind base;
+
+/* custom base styles */
+@layer base {
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply font-semibold leading-tight;
+    }
+
+    h1 {
+        @apply mb-6 text-6xl;
+    }
+
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        @apply mb-4;
+    }
+
+    h2 {
+        @apply text-5xl;
+    }
+
+    h3 {
+        @apply text-4xl;
+    }
+
+    h4 {
+        @apply text-3xl;
+    }
+
+    h5 {
+        @apply text-2xl;
+    }
+
+    h6 {
+        @apply text-xl;
+    }
+
+    .intro {
+        @apply text-lg;
+    }
+
+    p {
+        @apply text-base font-light leading-normal mb-4;
+    }
+
+    a {
+        @apply underline;
+        @apply lg:hover:no-underline;
+    }
+
+    ul {
+        @apply mb-4 list-disc list-outside pl-5;
+    }
+
+    ol {
+        @apply mb-4 list-decimal list-outside pl-5;
+    }
+}

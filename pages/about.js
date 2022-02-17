@@ -6,13 +6,13 @@ import { storyblokConnection } from "../utilities/storyblok";
 import { REPO_QUERY } from "../graphql/github/repo";
 import { HOME_QUERY } from "../graphql/storyblok/home";
 
-export default function PageIndex({ github, storyblok }) {
+export default function PageAbout({ github, storyblok }) {
     return (
         <div className="container">
             <div className="my-4 text-center">
-                <div>{process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}</div>
-                <NextLink href="/about">
-                    <a>About</a>
+                <div>about</div>
+                <NextLink href="/">
+                    <a>Home</a>
                 </NextLink>
             </div>
             <div className="mb-4 shadow-2xl">

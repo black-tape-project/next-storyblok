@@ -1,7 +1,27 @@
-import "../styles/globals.css";
+import "../styles/index.css";
 
-function MyApp({ Component, pageProps }) {
+import { useEffect } from "react";
+
+import NextRouter from "next/router";
+
+import NProgress from "nprogress";
+
+function NextApp({ Component, pageProps }) {
+    useEffect(() => {
+        const load = () => {
+            NProgress.start();
+        };
+
+        const stop = () => {
+            NProgress.done();
+        };
+
+        NextRouter.events.on("routeChangeStart", () => load());
+        NextRouter.events.on("routeChangeComplete", () => stop());
+        NextRouter.events.on("routeChangeError", () => stop());
+    });
+
     return <Component {...pageProps} />;
 }
 
-export default MyApp;
+export default NextApp;

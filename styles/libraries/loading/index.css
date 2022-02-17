@@ -1,0 +1,36 @@
+/*
+
+* Stylesheet (CSS)
+- version (0.0.1)
+
+"styles/index.css"
+
+*/
+
+#nprogress {
+    @apply pointer-events-none relative;
+}
+
+#nprogress .bar,
+#nprogress .spinner {
+    @apply z-30;
+}
+
+/* bar */
+#nprogress .bar {
+    @apply bg-red-500 fixed top-0 left-0 w-full h-1;
+}
+
+/* blur effect */
+#nprogress .peg {
+    @apply block absolute right-0 h-full w-20 bg-gradient-to-r from-red-500 via-red-700 to-red-900;
+}
+
+/* remove these to get rid of the spinner */
+#nprogress .spinner {
+    @apply block fixed top-5 right-5;
+}
+
+#nprogress .spinner-icon {
+    @apply animate-spin w-5 h-5 border-red-500 border-t-2 border-l-2 rounded-full;
+}

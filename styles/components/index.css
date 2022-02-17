@@ -1,0 +1,14 @@
+/*
+
+* Stylesheet (CSS)
+- version (0.0.1)
+
+"styles/index.css"
+
+*/
+
+@tailwind components;
+
+/* custom components styles */
+@layer components {
+}
