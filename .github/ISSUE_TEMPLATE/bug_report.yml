@@ -4,29 +4,29 @@ body:
   - type: markdown
     attributes:
       value: >
-        Thank you for reporting an issue.
+        Thank you for reporting an issue.  
 
         This issue tracker is for reporting bugs and errors found in `next-storyblok`
-        (https://github.com/black-tape-project/next-storyblok).
+        (https://github.com/black-tape-project/next-storyblok).  
 
         If you have a question about how to achieve something or are struggling
         in anyway, please post a question inside of the discussions tab:
-        https://github.com/black-tape-project/next-storyblok/discussions
+        https://github.com/black-tape-project/next-storyblok/discussions  
 
         **Before submitting a new bug/issue, please check the links below to see
-        if there is a solution or question posted there already.**
+        if there is a solution or question posted there already.**  
 
-        #### Issues Tab
+        #### Issues Tab  
 
-        https://github.com/black-tape-project/next-storyblok/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc
+        https://github.com/black-tape-project/next-storyblok/issues?q=is%3Aissue+is%3Aopen+sort%3Aupdated-desc  
 
-        #### Closed Issues Tab
+        #### Closed Issues Tab  
 
-        https://github.com/black-tape-project/next-storyblok/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed
+        https://github.com/black-tape-project/next-storyblok/issues?q=is%3Aissue+sort%3Aupdated-desc+is%3Aclosed  
 
-        #### Discussions Tab
+        #### Discussions Tab  
 
-        https://github.com/black-tape-project/next-storyblok/discussions
+        https://github.com/black-tape-project/next-storyblok/discussions  
 
         The more information you fill in, the better the community can help you.
   - type: textarea
