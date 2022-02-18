@@ -1,6 +1,9 @@
 import { useEffect } from "react";
 
+import NextHead from "next/head";
 import NextRouter from "next/router";
+
+import { DefaultSeo } from "next-seo";
 
 import NProgress from "nprogress";
 
@@ -23,7 +26,30 @@ function NextApp({ Component, pageProps }) {
 
     const getLayout = Component.getLayout || ((page) => page);
 
-    return getLayout(<Component {...pageProps} />);
+    return (
+        <>
+            <NextHead>
+                <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1"
+                />
+                {/* The above meta tags *must* come first in the <head>
+                to consistently ensure proper document rendering.
+                Any other head element should come *after* these tags. */}
+            </NextHead>
+
+            <DefaultSeo
+                title="next-storyblok"
+                description="Starter Kit"
+                openGraph={{
+                    type: "website",
+                    site_name: "next-storyblok",
+                }}
+            />
+
+            {getLayout(<Component {...pageProps} />)}
+        </>
+    );
 }
 
 export default NextApp;

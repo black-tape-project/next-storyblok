@@ -1,5 +1,7 @@
 import NextLink from "next/link";
 
+import { NextSeo } from "next-seo";
+
 import { storyblokConnection } from "../utilities/storyblok";
 
 import { SLUG_QUERY } from "../graphql/storyblok/slug";
@@ -8,19 +10,36 @@ import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/layout/default";
 
+import { generateCanonicalUrl } from "../functions/url";
+
 export default function PageAbout({ variables, storyblok }) {
     return (
-        <div className="container">
-            <div className="my-4 text-center">
-                <h1>about</h1>
-                <p className="intro intro--red">Intro</p>
-                <NextLink href="/">
-                    <a>Home</a>
-                </NextLink>
+        <>
+            <NextSeo
+                title={storyblok.content.seo_title}
+                description={storyblok.content.seo_description}
+                canonical={generateCanonicalUrl(storyblok.slug)}
+                noindex={storyblok.content.seo_index}
+                nofollow={storyblok.content.seo_follow}
+                openGraph={{
+                    url: generateCanonicalUrl(storyblok.slug),
+                    title: storyblok.content.seo_title,
+                    description: storyblok.content.seo_description,
+                }}
+            />
+
+            <div className="container">
+                <div className="my-4 text-center">
+                    <h1>about</h1>
+                    <p className="intro intro--red">Intro</p>
+                    <NextLink href="/">
+                        <a>Home</a>
+                    </NextLink>
+                </div>
+                <AtomsCode content={variables} />
+                <AtomsCode content={storyblok} />
             </div>
-            <AtomsCode content={variables} />
-            <AtomsCode content={storyblok} />
-        </div>
+        </>
     );
 }
 

@@ -8,7 +8,7 @@
 */
 
 export const generateCanonicalUrl = (slug) => {
-    const base = "http://localhost:3000/";
+    const base = "http://localhost:3000";
 
     if (slug === "home") {
         return base;
