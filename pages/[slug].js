@@ -8,7 +8,7 @@ import { SLUG_QUERY } from "../graphql/storyblok/slug";
 
 import AtomsCode from "../components/atoms/code";
 
-import LayoutTemplateDefault from "../components/layout/default";
+import LayoutTemplateDefault from "../components/templates/default";
 
 import dayjs from "dayjs";
 
@@ -32,7 +32,9 @@ export default function PageAbout({ variables, storyblok }) {
 
             <div className="container">
                 <div className="my-4 text-center">
-                    <h1>about</h1>
+                    <h1 data-cy="title" className="lowercase">
+                        {storyblok.name}
+                    </h1>
                     <p className="intro intro--red">Intro</p>
                     <p className="text-xs uppercase">
                         Last Updated{" "}

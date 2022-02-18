@@ -3,7 +3,7 @@
 * Layout Container
 - version (0.0.1)
 
-"components/layout/container/index.js"
+"components/templates/container/index.js"
 
 */
 

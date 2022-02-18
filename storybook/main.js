@@ -1,7 +1,11 @@
 module.exports = {
     staticDirs: ["../public"],
-    stories: ["../components/**/*.stories.{js,jsx}"],
+    stories: ["./stories/**/*.stories.{js,jsx}"],
     addons: [
+        "@storybook/addon-a11y",
+        "@storybook/addon-essentials",
+        "@storybook/addon-interactions",
+        "@storybook/addon-links",
         {
             name: "@storybook/addon-postcss",
             options: {
@@ -10,10 +14,6 @@ module.exports = {
                 },
             },
         },
-        "@storybook/addon-a11y",
-        "@storybook/addon-essentials",
-        "@storybook/addon-interactions",
-        "@storybook/addon-links",
         "storybook-addon-storyout/register",
     ],
     framework: "@storybook/react",

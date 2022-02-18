@@ -4,6 +4,7 @@
     "version": "0.1.4",
     "license": "MIT",
     "scripts": {
+        "cypress:open": "cypress open",
         "next:build": "next build",
         "next:dev": "next dev",
         "next:lint": "next lint",
@@ -11,7 +12,7 @@
         "prettier:check": "prettier --check .",
         "prettier:write": "prettier --write .",
         "storybook:build": "build-storybook",
-        "storybook:dev": "start-storybook -p 6006",
+        "storybook:dev": "start-storybook -p 6006 -c storybook",
         "tailwind:build": "tailwind-config-viewer export ./tailwind-static",
         "tailwind:dev": "tailwind-config-viewer -p 5005 -o",
         "vscode": "yarn dlx @yarnpkg/sdks vscode"
@@ -45,6 +46,7 @@
         "autoprefixer": "^10.4.2",
         "babel-loader": "^8.2.3",
         "cssnano": "^5.0.17",
+        "cypress": "^9.5.0",
         "eslint": "^8.9.0",
         "eslint-config-next": "^12.1.0",
         "eslint-config-prettier": "^8.3.0",

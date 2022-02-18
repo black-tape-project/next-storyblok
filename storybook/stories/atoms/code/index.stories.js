@@ -1,4 +1,4 @@
-import AtomsCode from "./index.js";
+import AtomsCode from "../../../../components/atoms/code";
 
 export default {
     title: "components/atoms/code",

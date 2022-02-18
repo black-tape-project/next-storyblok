@@ -10,7 +10,7 @@ import { HOME_QUERY } from "../graphql/storyblok/home";
 
 import AtomsCode from "../components/atoms/code";
 
-import LayoutTemplateDefault from "../components/layout/default";
+import LayoutTemplateDefault from "../components/templates/default";
 
 import dayjs from "dayjs";
 
@@ -44,7 +44,9 @@ export default function PageIndex({ github, storyblok }) {
 
             <div className="container">
                 <div className="my-4 text-center">
-                    <h1>{process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}</h1>
+                    <h1 data-cy="title" className="lowercase">
+                        {process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}
+                    </h1>
                     <p className="intro">Intro</p>
                     <p className="text-xs uppercase">
                         Last Updated{" "}
