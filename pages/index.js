@@ -13,6 +13,7 @@ export default function PageIndex({ github, storyblok }) {
         <div className="container">
             <div className="my-4 text-center">
                 <h1>{process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}</h1>
+                <p className="intro">Intro</p>
                 <NextLink href="/about-us">
                     <a>About</a>
                 </NextLink>

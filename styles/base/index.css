@@ -54,6 +54,10 @@
 
     .intro {
         @apply text-lg;
+
+        &--red {
+            @apply text-red-500;
+        }
     }
 
     p {

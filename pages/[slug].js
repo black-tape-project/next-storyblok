@@ -11,6 +11,7 @@ export default function PageAbout({ variables, storyblok }) {
         <div className="container">
             <div className="my-4 text-center">
                 <h1>about</h1>
+                <p className="intro intro--red">Intro</p>
                 <NextLink href="/">
                     <a>Home</a>
                 </NextLink>

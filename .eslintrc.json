@@ -7,7 +7,8 @@
     ],
     "plugins": ["tailwindcss", "prettier"],
     "rules": {
-        "prettier/prettier": "error"
+        "prettier/prettier": "error",
+        "tailwindcss/no-custom-classname": "off"
     },
     "overrides": [
         {
