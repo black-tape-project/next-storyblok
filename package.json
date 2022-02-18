@@ -13,7 +13,8 @@
         "storybook:build": "build-storybook",
         "storybook:dev": "start-storybook -p 6006",
         "tailwind:build": "tailwind-config-viewer export ./tailwind-static",
-        "tailwind:dev": "tailwind-config-viewer -p 5005 -o"
+        "tailwind:dev": "tailwind-config-viewer -p 5005 -o",
+        "vscode": "yarn dlx @yarnpkg/sdks vscode"
     },
     "dependencies": {
         "core-js": "^3.21.1",
@@ -24,7 +25,8 @@
         "next-seo": "^5.1.0",
         "nprogress": "^0.2.0",
         "react": "^17.0.2",
-        "react-dom": "^17.0.2"
+        "react-dom": "^17.0.2",
+        "react-icons": "^4.3.1"
     },
     "devDependencies": {
         "@babel/core": "^7.17.5",
