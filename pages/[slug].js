@@ -10,6 +10,8 @@ import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/layout/default";
 
+import dayjs from "dayjs";
+
 import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageAbout({ variables, storyblok }) {
@@ -32,6 +34,10 @@ export default function PageAbout({ variables, storyblok }) {
                 <div className="my-4 text-center">
                     <h1>about</h1>
                     <p className="intro intro--red">Intro</p>
+                    <p className="text-xs uppercase">
+                        Last Updated{" "}
+                        {dayjs(storyblok.published_at).format("LL")}
+                    </p>
                     <NextLink href="/">
                         <a>Home</a>
                     </NextLink>

@@ -7,9 +7,14 @@ import { DefaultSeo } from "next-seo";
 
 import NProgress from "nprogress";
 
+import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+
 import "../styles/index.css";
 
 function NextApp({ Component, pageProps }) {
+    dayjs.extend(localizedFormat);
+
     useEffect(() => {
         const load = () => {
             NProgress.start();

@@ -12,6 +12,8 @@ import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/layout/default";
 
+import dayjs from "dayjs";
+
 import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageIndex({ github, storyblok }) {
@@ -44,6 +46,10 @@ export default function PageIndex({ github, storyblok }) {
                 <div className="my-4 text-center">
                     <h1>{process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}</h1>
                     <p className="intro">Intro</p>
+                    <p className="text-xs uppercase">
+                        Last Updated{" "}
+                        {dayjs(storyblok.published_at).format("LL")}
+                    </p>
                     <NextLink href="/about-us">
                         <a>About</a>
                     </NextLink>
