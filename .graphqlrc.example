@@ -1,0 +1,23 @@
+{
+    "projects": {
+        "app": {
+            "extensions": {
+                "endpoints": {
+                    "apiendpointone": {
+                        "url": "https://url.com/v1/api",
+                        "headers": {
+                            "token": "TOKEN",
+                            "version": "draft"
+                        }
+                    },
+                    "apiendpointtwo": {
+                        "url": "https://api.url.com/graphql",
+                        "headers": {
+                            "authorization": "Bearer TOKEN"
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
