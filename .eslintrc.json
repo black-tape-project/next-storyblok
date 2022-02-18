@@ -2,10 +2,10 @@
     "extends": [
         "next/core-web-vitals",
         "plugin:storybook/recommended",
-        "plugin:tailwindcss/recommended",
-        "prettier"
+        "prettier",
+        "plugin:tailwindcss/recommended"
     ],
-    "plugins": ["tailwindcss", "prettier"],
+    "plugins": ["prettier", "tailwindcss"],
     "rules": {
         "prettier/prettier": "error",
         "tailwindcss/no-custom-classname": "off"

@@ -5,7 +5,7 @@ export default function Page404() {
         <>
             <h1>404 - Page Not Found</h1>
             <NextLink href="/">
-                <a className="p-2 bg-blue-100">Go Home</a>
+                <a className="bg-blue-100 px-2">Go Home</a>
             </NextLink>
         </>
     );

@@ -61,7 +61,7 @@
     }
 
     p {
-        @apply text-base font-light leading-normal mb-4;
+        @apply mb-4 text-base font-light leading-normal;
     }
 
     a {
@@ -70,10 +70,10 @@
     }
 
     ul {
-        @apply mb-4 list-disc list-outside pl-5;
+        @apply mb-4 list-outside list-disc pl-5;
     }
 
     ol {
-        @apply mb-4 list-decimal list-outside pl-5;
+        @apply mb-4 list-outside list-decimal pl-5;
     }
 }
