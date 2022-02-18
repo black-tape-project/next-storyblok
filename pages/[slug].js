@@ -6,6 +6,8 @@ import { SLUG_QUERY } from "../graphql/storyblok/slug";
 
 import AtomsCode from "../components/atoms/code";
 
+import LayoutTemplateDefault from "../components/layout/default";
+
 export default function PageAbout({ variables, storyblok }) {
     return (
         <div className="container">
@@ -21,6 +23,10 @@ export default function PageAbout({ variables, storyblok }) {
         </div>
     );
 }
+
+PageAbout.getLayout = function getLayout(Page) {
+    return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
+};
 
 export async function getServerSideProps({ res, params }) {
     res.setHeader(

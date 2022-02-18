@@ -8,6 +8,8 @@ import { HOME_QUERY } from "../graphql/storyblok/home";
 
 import AtomsCode from "../components/atoms/code";
 
+import LayoutTemplateDefault from "../components/layout/default";
+
 export default function PageIndex({ github, storyblok }) {
     return (
         <div className="container">
@@ -23,6 +25,10 @@ export default function PageIndex({ github, storyblok }) {
         </div>
     );
 }
+
+PageIndex.getLayout = function getLayout(Page) {
+    return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
+};
 
 export async function getServerSideProps({ res }) {
     res.setHeader(
