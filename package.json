@@ -15,8 +15,7 @@
         "storybook:build": "build-storybook",
         "storybook:dev": "start-storybook -p 6006 -c storybook",
         "tailwind:build": "tailwind-config-viewer export ./tailwind-static",
-        "tailwind:dev": "tailwind-config-viewer -p 5005 -o",
-        "vscode": "yarn dlx @yarnpkg/sdks vscode"
+        "tailwind:dev": "tailwind-config-viewer -p 5005 -o"
     },
     "dependencies": {
         "core-js": "^3.21.1",
