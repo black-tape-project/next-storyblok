@@ -3,14 +3,14 @@
         "app": {
             "extensions": {
                 "endpoints": {
-                    "apiendpointone": {
+                    "storybook": {
                         "url": "https://url.com/v1/api",
                         "headers": {
                             "token": "TOKEN",
                             "version": "draft"
                         }
                     },
-                    "apiendpointtwo": {
+                    "github": {
                         "url": "https://api.url.com/graphql",
                         "headers": {
                             "authorization": "Bearer TOKEN"
