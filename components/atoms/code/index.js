@@ -2,7 +2,7 @@ import { FiX, FiMinus, FiMaximize2 } from "react-icons/fi";
 
 export default function AtomsCode({ content }) {
     return (
-        <div className="mb-4 shadow-2xl">
+        <div data-testid="code" className="mb-4 shadow-2xl">
             <div className="flex rounded-t-lg border border-b border-gray-900 bg-gray-800 py-3 px-4">
                 <div className="mr-2 flex min-h-[1rem] min-w-[1rem] items-center justify-center rounded-full bg-red-500">
                     <FiX className="text-xs" />
