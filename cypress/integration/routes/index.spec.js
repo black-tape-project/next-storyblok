@@ -1,6 +1,6 @@
 function setUp() {
     cy.viewport("macbook-13");
-    cy.visit("http://localhost:3000");
+    cy.visit("/");
 }
 
 describe("Homepage", () => {

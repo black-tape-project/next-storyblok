@@ -4,6 +4,7 @@
     "version": "0.1.4",
     "license": "MIT",
     "scripts": {
+        "cypress:headless": "cypress run",
         "cypress:open": "cypress open",
         "next:build": "next build",
         "next:dev": "next dev",

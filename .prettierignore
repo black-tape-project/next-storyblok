@@ -12,8 +12,8 @@ package-lock.json
 /coverage
 
 # next.js
-/.next/
-/out/
+/.next
+/out
 
 # production
 /build
@@ -34,10 +34,15 @@ yarn-error.log*
 .env.production.local
 
 # vercel
-.vercel
+/.vercel
 
 # vs code
-.vscode
+/.vscode
+
+# cypress
+/cypress/downloads
+/cypress/screenshots
+/cypress/videos
 
 # storybook
 /storybook-static
