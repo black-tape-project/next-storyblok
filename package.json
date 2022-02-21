@@ -15,7 +15,8 @@
         "storybook:build": "build-storybook",
         "storybook:dev": "start-storybook -p 6006 -c storybook",
         "tailwind:build": "tailwind-config-viewer export ./tailwind-static",
-        "tailwind:dev": "tailwind-config-viewer -p 5005 -o"
+        "tailwind:dev": "tailwind-config-viewer -p 5005 -o",
+        "test:start": "start-server-and-test next:dev 3000 cypress:headless"
     },
     "dependencies": {
         "core-js": "^3.21.1",
@@ -58,6 +59,7 @@
         "postcss-import": "^14.0.2",
         "prettier": "2.5.1",
         "prettier-plugin-tailwindcss": "^0.1.7",
+        "start-server-and-test": "^1.14.0",
         "storybook-addon-storyout": "^1.0.1",
         "tailwind-config-viewer": "^1.6.3",
         "tailwindcss": "^3.0.23"
