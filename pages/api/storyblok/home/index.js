@@ -3,9 +3,7 @@ import { storyblokConnection } from "../../../../utilities/api/storyblok";
 import { HOME_QUERY } from "../../../../graphql/storyblok/home";
 
 export default async function handler(_request, response) {
-    const { data, errors, headers } = await storyblokConnection.rawRequest(
-        HOME_QUERY
-    );
+    const { data, errors } = await storyblokConnection.rawRequest(HOME_QUERY);
 
     response.setHeader(
         "Cache-Control",

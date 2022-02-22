@@ -4,6 +4,8 @@ import NextHead from "next/head";
 
 import { NextSeo } from "next-seo";
 
+import useSWR, { SWRConfig } from "swr";
+
 import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/templates/default";
@@ -12,7 +14,16 @@ import dayjs from "dayjs";
 
 import { generateCanonicalUrl } from "../functions/url";
 
-export default function PageIndex({ github, storyblok }) {
+export default function PageIndex({ fallback }) {
+    const { data: github, error: githubError } = useSWR("/api/github", {
+        fallbackData: fallback.github,
+    });
+
+    const { data: storyblok, error: storyblokError } = useSWR(
+        "/api/storyblok/home",
+        { fallbackData: fallback.storyblok }
+    );
+
     return (
         <>
             <NextHead>
@@ -33,15 +44,15 @@ export default function PageIndex({ github, storyblok }) {
             </NextHead>
 
             <NextSeo
-                title={storyblok.content.seo_title}
-                description={storyblok.content.seo_description}
-                canonical={generateCanonicalUrl(storyblok.slug)}
-                noindex={storyblok.content.seo_index}
-                nofollow={storyblok.content.seo_follow}
+                title={storyblok?.content.seo_title}
+                description={storyblok?.content.seo_description}
+                canonical={generateCanonicalUrl(storyblok?.slug)}
+                noindex={storyblok?.content.seo_index}
+                nofollow={storyblok?.content.seo_follow}
                 openGraph={{
-                    url: generateCanonicalUrl(storyblok.slug),
-                    title: storyblok.content.seo_title,
-                    description: storyblok.content.seo_description,
+                    url: generateCanonicalUrl(storyblok?.slug),
+                    title: storyblok?.content.seo_title,
+                    description: storyblok?.content.seo_description,
                 }}
             />
 
@@ -61,16 +72,18 @@ export default function PageIndex({ github, storyblok }) {
                         {process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}
                     </h1>
                     <p className="intro">Intro</p>
-                    <p className="text-xs uppercase">
-                        Last Updated{" "}
-                        {dayjs(storyblok.published_at).format("LL")}
-                    </p>
+                    {storyblok && (
+                        <p className="text-xs uppercase">
+                            Last Updated{" "}
+                            {dayjs(storyblok?.published_at).format("LL")}
+                        </p>
+                    )}
                     <NextLink href="/about-us">
                         <a>About</a>
                     </NextLink>
                 </div>
-                <AtomsCode content={github} />
-                <AtomsCode content={storyblok} />
+                {github && <AtomsCode content={github} />}
+                {storyblok && <AtomsCode content={storyblok} />}
             </div>
         </>
     );
@@ -80,25 +93,29 @@ PageIndex.getLayout = function getLayout(Page) {
     return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
 };
 
-export async function getServerSideProps(context) {
-    let github = await fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/github");
-    github = await github.json();
+export async function getStaticProps() {
+    try {
+        const github = await fetch(
+            process.env.NEXT_PUBLIC_APP_URL + "/api/github"
+        );
 
-    let storyblok = await fetch(
-        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
-    );
-    storyblok = await storyblok.json();
+        const githubData = await github.json();
 
-    // if (!data) {
-    //     return {
-    //         notFound: true,
-    //     };
-    // }
+        const storyblok = await fetch(
+            process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+        );
 
-    return {
-        props: {
-            github,
-            storyblok,
-        },
-    };
+        const storyblokData = await storyblok.json();
+
+        return {
+            props: {
+                fallback: {
+                    github: githubData,
+                    storyblok: storyblokData,
+                },
+            },
+        };
+    } catch (err) {
+        return { props: { error: "Something went wrong." } };
+    }
 }

@@ -5,6 +5,8 @@ import NextRouter from "next/router";
 
 import { DefaultSeo } from "next-seo";
 
+import { SWRConfig } from "swr";
+
 import NProgress from "nprogress";
 
 import dayjs from "dayjs";
@@ -13,6 +15,7 @@ import localizedFormat from "dayjs/plugin/localizedFormat";
 import "../styles/index.css";
 
 function NextApp({ Component, pageProps }) {
+    // TODO (Ask if this makes any difference with regards to it's location.)
     dayjs.extend(localizedFormat);
 
     useEffect(() => {
@@ -32,7 +35,12 @@ function NextApp({ Component, pageProps }) {
     const getLayout = Component.getLayout || ((page) => page);
 
     return (
-        <>
+        <SWRConfig
+            value={{
+                fetcher: (resource, init) =>
+                    fetch(resource, init).then((response) => response.json()),
+            }}
+        >
             <NextHead>
                 <meta
                     name="viewport"
@@ -53,7 +61,7 @@ function NextApp({ Component, pageProps }) {
             />
 
             {getLayout(<Component {...pageProps} />)}
-        </>
+        </SWRConfig>
     );
 }
 
