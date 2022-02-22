@@ -3,9 +3,7 @@ import { githubConnection } from "../../../utilities/api/github";
 import { REPO_QUERY } from "../../../graphql/github/repo";
 
 export default async function handler(_request, response) {
-    const { data, errors, headers } = await githubConnection.rawRequest(
-        REPO_QUERY
-    );
+    const { data, errors } = await githubConnection.rawRequest(REPO_QUERY);
 
     response.setHeader(
         "Cache-Control",
