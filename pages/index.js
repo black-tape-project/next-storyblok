@@ -94,22 +94,28 @@ PageIndex.getLayout = function getLayout(Page) {
 };
 
 export async function getStaticProps() {
-    const github = await fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/github");
+    try {
+        const github = await fetch(
+            process.env.NEXT_PUBLIC_APP_URL + "/api/github"
+        );
 
-    const githubData = await github.json();
+        const githubData = await github.json();
 
-    const storyblok = await fetch(
-        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
-    );
+        const storyblok = await fetch(
+            process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+        );
 
-    const storyblokData = await storyblok.json();
+        const storyblokData = await storyblok.json();
 
-    return {
-        props: {
-            fallback: {
-                github: githubData,
-                storyblok: storyblokData,
+        return {
+            props: {
+                fallback: {
+                    github: githubData,
+                    storyblok: storyblokData,
+                },
             },
-        },
-    };
+        };
+    } catch (err) {
+        return { props: { error: "Something went wrong." } };
+    }
 }
