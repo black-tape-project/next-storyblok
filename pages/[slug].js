@@ -2,7 +2,7 @@ import NextLink from "next/link";
 
 import { NextSeo } from "next-seo";
 
-import { storyblokConnection } from "../utilities/storyblok";
+import { storyblokConnection } from "../utilities/api/storyblok";
 
 import { SLUG_QUERY } from "../graphql/storyblok/slug";
 
@@ -15,6 +15,12 @@ import dayjs from "dayjs";
 import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageAbout({ variables, storyblok }) {
+    // if (!github) {
+    //     return {
+    //         notFound: true,
+    //     };
+    // }
+
     return (
         <>
             <NextSeo

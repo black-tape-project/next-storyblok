@@ -1,12 +1,8 @@
+// import NextError from "next/error";
 import NextLink from "next/link";
+import NextHead from "next/head";
 
 import { NextSeo } from "next-seo";
-
-import { githubConnection } from "../utilities/github";
-import { storyblokConnection } from "../utilities/storyblok";
-
-import { REPO_QUERY } from "../graphql/github/repo";
-import { HOME_QUERY } from "../graphql/storyblok/home";
 
 import AtomsCode from "../components/atoms/code";
 
@@ -19,6 +15,21 @@ import { generateCanonicalUrl } from "../functions/url";
 export default function PageIndex({ github, storyblok }) {
     return (
         <>
+            <NextHead>
+                <link
+                    rel="preload"
+                    href="http://localhost:3000/api/github"
+                    as="fetch"
+                    crossOrigin="anonymous"
+                ></link>
+                <link
+                    rel="preload"
+                    href="http://localhost:3000/api/storyblok/home"
+                    as="fetch"
+                    crossOrigin="anonymous"
+                ></link>
+            </NextHead>
+
             <NextSeo
                 title={storyblok.content.seo_title}
                 description={storyblok.content.seo_description}
@@ -67,24 +78,23 @@ PageIndex.getLayout = function getLayout(Page) {
     return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
 };
 
-export async function getServerSideProps({ res }) {
-    res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=300, stale-while-revalidate=60"
-    );
+export async function getServerSideProps(context) {
+    let github = await fetch("http://localhost:3000/api/github");
+    github = await github.json();
 
-    const githubCall = await githubConnection
-        .request(REPO_QUERY)
-        .then((data) => data.repository);
+    let storyblok = await fetch("http://localhost:3000/api/storyblok/home");
+    storyblok = await storyblok.json();
 
-    const storyblokCall = await storyblokConnection
-        .request(HOME_QUERY)
-        .then((data) => data.TemplateindexItem);
+    // if (!data) {
+    //     return {
+    //         notFound: true,
+    //     };
+    // }
 
     return {
         props: {
-            github: githubCall,
-            storyblok: storyblokCall,
+            github,
+            storyblok,
         },
     };
 }

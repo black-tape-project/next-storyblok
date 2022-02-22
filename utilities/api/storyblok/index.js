@@ -1,5 +1,3 @@
-import { useEffect, useState } from "react";
-
 import { GraphQLClient } from "graphql-request";
 
 export const storyblokConnection = new GraphQLClient(
