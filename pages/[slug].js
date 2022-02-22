@@ -1,10 +1,9 @@
+import NextHead from "next/head";
 import NextLink from "next/link";
 
 import { NextSeo } from "next-seo";
 
-import { storyblokConnection } from "../utilities/api/storyblok";
-
-import { SLUG_QUERY } from "../graphql/storyblok/slug";
+import useSWR from "swr";
 
 import AtomsCode from "../components/atoms/code";
 
@@ -14,44 +13,55 @@ import dayjs from "dayjs";
 
 import { generateCanonicalUrl } from "../functions/url";
 
-export default function PageAbout({ variables, storyblok }) {
-    // if (!github) {
-    //     return {
-    //         notFound: true,
-    //     };
-    // }
+export default function PageAbout({ variables, fallback }) {
+    const { data: storyblok, error: storyblokError } = useSWR(
+        `/api/storyblok/slug/${variables.slug}`,
+        { fallbackData: fallback.storyblok }
+    );
 
     return (
         <>
+            <NextHead>
+                <link
+                    rel="preload"
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/slug/${variables.slug}`}
+                    as="fetch"
+                    crossOrigin="anonymous"
+                ></link>
+            </NextHead>
+
             <NextSeo
-                title={storyblok.content.seo_title}
-                description={storyblok.content.seo_description}
-                canonical={generateCanonicalUrl(storyblok.slug)}
-                noindex={storyblok.content.seo_index}
-                nofollow={storyblok.content.seo_follow}
+                title={storyblok?.content.seo_title}
+                description={storyblok?.content.seo_description}
+                canonical={generateCanonicalUrl(storyblok?.slug)}
+                noindex={storyblok?.content.seo_index}
+                nofollow={storyblok?.content.seo_follow}
                 openGraph={{
-                    url: generateCanonicalUrl(storyblok.slug),
-                    title: storyblok.content.seo_title,
-                    description: storyblok.content.seo_description,
+                    url: generateCanonicalUrl(storyblok?.slug),
+                    title: storyblok?.content.seo_title,
+                    description: storyblok?.content.seo_description,
                 }}
             />
 
             <div className="container">
                 <div className="my-4 text-center">
-                    <h1 data-cy="title" className="lowercase">
-                        {storyblok.name}
-                    </h1>
-                    <p className="intro intro--red">Intro</p>
-                    <p className="text-xs uppercase">
-                        Last Updated{" "}
-                        {dayjs(storyblok.published_at).format("LL")}
-                    </p>
+                    {storyblok && (
+                        <>
+                            <h1 data-cy="title" className="lowercase">
+                                {storyblok?.name}
+                            </h1>
+                            <p className="text-xs uppercase">
+                                Last Updated{" "}
+                                {dayjs(storyblok?.published_at).format("LL")}
+                            </p>
+                        </>
+                    )}
                     <NextLink href="/">
                         <a>Home</a>
                     </NextLink>
                 </div>
-                <AtomsCode content={variables} />
-                <AtomsCode content={storyblok} />
+                {variables && <AtomsCode content={variables} />}
+                {storyblok && <AtomsCode content={storyblok} />}
             </div>
         </>
     );
@@ -61,26 +71,32 @@ PageAbout.getLayout = function getLayout(Page) {
     return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
 };
 
-export async function getServerSideProps({ res, params }) {
-    res.setHeader(
-        "Cache-Control",
-        "public, s-maxage=300, stale-while-revalidate=60"
-    );
+export async function getServerSideProps({ params }) {
+    try {
+        const paramSlug = params.slug;
 
-    const paramSlug = params.slug;
+        const variables = {
+            slug: paramSlug,
+        };
 
-    const variables = {
-        slug: paramSlug,
-    };
+        const storyblok = await fetch(
+            `${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/slug/${variables.slug}`
+        );
 
-    const storyblokCall = await storyblokConnection
-        .request(SLUG_QUERY, variables)
-        .then((data) => data.TemplatedefaultItem);
+        const storyblokData = await storyblok.json();
 
-    return {
-        props: {
-            variables,
-            storyblok: storyblokCall,
-        },
-    };
+        return {
+            props: {
+                variables,
+                fallback: {
+                    storyblok: storyblokData,
+                },
+            },
+        };
+    } catch (err) {
+        // TODO (Change to 500 error page?)
+        return {
+            notFound: true,
+        };
+    }
 }

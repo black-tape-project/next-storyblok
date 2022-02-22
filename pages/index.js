@@ -1,10 +1,11 @@
-// import NextError from "next/error";
-import NextLink from "next/link";
 import NextHead from "next/head";
+import NextLink from "next/link";
 
 import { NextSeo } from "next-seo";
 
-import useSWR, { SWRConfig } from "swr";
+import useSWR from "swr";
+
+import { render } from "storyblok-rich-text-react-renderer";
 
 import AtomsCode from "../components/atoms/code";
 
@@ -29,15 +30,13 @@ export default function PageIndex({ fallback }) {
             <NextHead>
                 <link
                     rel="preload"
-                    href={process.env.NEXT_PUBLIC_APP_URL + "/api/github"}
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/github`}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
                 <link
                     rel="preload"
-                    href={
-                        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
-                    }
+                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/home`}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
@@ -68,15 +67,17 @@ export default function PageIndex({ fallback }) {
 
             <div className="container">
                 <div className="my-4 text-center">
-                    <h1 data-cy="title" className="lowercase">
-                        {process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}
-                    </h1>
-                    <p className="intro">Intro</p>
                     {storyblok && (
-                        <p className="text-xs uppercase">
-                            Last Updated{" "}
-                            {dayjs(storyblok?.published_at).format("LL")}
-                        </p>
+                        <>
+                            <h1 data-cy="title" className="lowercase">
+                                {storyblok?.content.title}
+                            </h1>
+                            <div>{render(storyblok?.content.intro)}</div>
+                            <p className="text-xs uppercase">
+                                Last Updated{" "}
+                                {dayjs(storyblok?.published_at).format("LL")}
+                            </p>
+                        </>
                     )}
                     <NextLink href="/about-us">
                         <a>About</a>
@@ -96,13 +97,13 @@ PageIndex.getLayout = function getLayout(Page) {
 export async function getStaticProps() {
     try {
         const github = await fetch(
-            process.env.NEXT_PUBLIC_APP_URL + "/api/github"
+            `${process.env.NEXT_PUBLIC_APP_URL}/api/github`
         );
 
         const githubData = await github.json();
 
         const storyblok = await fetch(
-            process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+            `${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/home`
         );
 
         const storyblokData = await storyblok.json();
@@ -116,6 +117,9 @@ export async function getStaticProps() {
             },
         };
     } catch (err) {
-        return { props: { error: "Something went wrong." } };
+        // TODO (Change to 500 error page?)
+        return {
+            notFound: true,
+        };
     }
 }
