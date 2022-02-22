@@ -18,13 +18,15 @@ export default function PageIndex({ github, storyblok }) {
             <NextHead>
                 <link
                     rel="preload"
-                    href="http://localhost:3000/api/github"
+                    href={process.env.NEXT_PUBLIC_APP_URL + "/api/github"}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
                 <link
                     rel="preload"
-                    href="http://localhost:3000/api/storyblok/home"
+                    href={
+                        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+                    }
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
@@ -79,10 +81,12 @@ PageIndex.getLayout = function getLayout(Page) {
 };
 
 export async function getServerSideProps(context) {
-    let github = await fetch("http://localhost:3000/api/github");
+    let github = await fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/github");
     github = await github.json();
 
-    let storyblok = await fetch("http://localhost:3000/api/storyblok/home");
+    let storyblok = await fetch(
+        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+    );
     storyblok = await storyblok.json();
 
     // if (!data) {

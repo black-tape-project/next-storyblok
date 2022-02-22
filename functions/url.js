@@ -8,7 +8,7 @@
 */
 
 export const generateCanonicalUrl = (slug) => {
-    const base = "http://localhost:3000";
+    const base = process.env.NEXT_PUBLIC_APP_URL;
 
     if (slug === "home") {
         return base;
