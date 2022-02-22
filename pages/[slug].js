@@ -5,11 +5,13 @@ import { NextSeo } from "next-seo";
 
 import useSWR from "swr";
 
+import dayjs from "dayjs";
+
 import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/templates/default";
 
-import dayjs from "dayjs";
+import StoryblokComponentUtility from "../components/storyblok/utilities";
 
 import { generateCanonicalUrl } from "../functions/url";
 
@@ -66,6 +68,7 @@ export default function PageAbout({ variables, fallback }) {
                 </div>
                 {variables && <AtomsCode content={variables} />}
                 {storyblok && <AtomsCode content={storyblok} />}
+                <StoryblokComponentUtility blok={storyblok.content} />
             </div>
         </>
     );

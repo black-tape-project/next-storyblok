@@ -7,11 +7,13 @@ import useSWR from "swr";
 
 import { render } from "storyblok-rich-text-react-renderer";
 
+import dayjs from "dayjs";
+
 import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/templates/default";
 
-import dayjs from "dayjs";
+import StoryblokComponentUtility from "../components/storyblok/utilities";
 
 import { generateCanonicalUrl } from "../functions/url";
 
@@ -87,6 +89,7 @@ export default function PageIndex({ fallback }) {
                 </div>
                 {github && <AtomsCode content={github} />}
                 {storyblok && <AtomsCode content={storyblok} />}
+                <StoryblokComponentUtility blok={storyblok.content} />
             </div>
         </>
     );
