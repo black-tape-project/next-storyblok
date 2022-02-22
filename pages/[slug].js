@@ -24,7 +24,11 @@ export default function PageAbout({ variables, fallback }) {
             <NextHead>
                 <link
                     rel="preload"
-                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/slug/${variables.slug}`}
+                    href={
+                        process.env.NEXT_PUBLIC_APP_URL +
+                        "/api/storyblok/slug/" +
+                        variables.slug
+                    }
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>

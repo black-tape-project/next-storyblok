@@ -30,13 +30,15 @@ export default function PageIndex({ fallback }) {
             <NextHead>
                 <link
                     rel="preload"
-                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/github`}
+                    href={process.env.NEXT_PUBLIC_APP_URL + "/api/github"}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
                 <link
                     rel="preload"
-                    href={`${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/home`}
+                    href={
+                        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+                    }
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
