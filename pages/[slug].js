@@ -76,21 +76,21 @@ PageAbout.getLayout = function getLayout(Page) {
 };
 
 export async function getServerSideProps({ params }) {
+    const paramSlug = params.slug;
+
+    const variables = {
+        slug: paramSlug,
+    };
+
+    const storyblok = await fetch(
+        process.env.NEXT_PUBLIC_APP_URL +
+            "/api/storyblok/slug/" +
+            variables.slug
+    );
+
+    const storyblokData = await storyblok.json();
+
     try {
-        const paramSlug = params.slug;
-
-        const variables = {
-            slug: paramSlug,
-        };
-
-        const storyblok = await fetch(
-            process.env.NEXT_PUBLIC_APP_URL +
-                "/api/storyblok/slug/" +
-                variables.slug
-        );
-
-        const storyblokData = await storyblok.json();
-
         return {
             props: {
                 variables,
