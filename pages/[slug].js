@@ -80,7 +80,9 @@ export async function getServerSideProps({ params }) {
         };
 
         const storyblok = await fetch(
-            `${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/slug/${variables.slug}`
+            process.env.NEXT_PUBLIC_APP_URL +
+                "/api/storyblok/slug/" +
+                variables.slug
         );
 
         const storyblokData = await storyblok.json();

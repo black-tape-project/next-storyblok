@@ -97,13 +97,13 @@ PageIndex.getLayout = function getLayout(Page) {
 export async function getStaticProps() {
     try {
         const github = await fetch(
-            `${process.env.NEXT_PUBLIC_APP_URL}/api/github`
+            process.env.NEXT_PUBLIC_APP_URL + "/api/github"
         );
 
         const githubData = await github.json();
 
         const storyblok = await fetch(
-            `${process.env.NEXT_PUBLIC_APP_URL}/api/storyblok/home`
+            process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
         );
 
         const storyblokData = await storyblok.json();
