@@ -15,7 +15,7 @@ import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageAbout({ variables, fallback }) {
     const { data: storyblok, error: storyblokError } = useSWR(
-        `/api/storyblok/slug/${variables.slug}`,
+        "/api/storyblok/slug/" + variables.slug,
         { fallbackData: fallback.storyblok }
     );
 
