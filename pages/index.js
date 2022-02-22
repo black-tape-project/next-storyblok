@@ -15,7 +15,7 @@ import dayjs from "dayjs";
 import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageIndex({ fallback }) {
-    const { data: github, error: githubError } = useSWR("/api/githudb", {
+    const { data: github, error: githubError } = useSWR("/api/github", {
         fallbackData: fallback.github,
     });
 

@@ -37,7 +37,6 @@ function NextApp({ Component, pageProps }) {
     return (
         <SWRConfig
             value={{
-                refreshInterval: 3000,
                 fetcher: (resource, init) =>
                     fetch(resource, init).then((response) => response.json()),
             }}
