@@ -43,15 +43,15 @@ export default function PageIndex({ fallback }) {
             </NextHead>
 
             <NextSeo
-                title={storyblok?.content.seo_title}
-                description={storyblok?.content.seo_description}
+                title={storyblok?.content?.seo_title}
+                description={storyblok?.content?.seo_description}
                 canonical={generateCanonicalUrl(storyblok?.slug)}
-                noindex={storyblok?.content.seo_index}
-                nofollow={storyblok?.content.seo_follow}
+                noindex={storyblok?.content?.seo_index}
+                nofollow={storyblok?.content?.seo_follow}
                 openGraph={{
                     url: generateCanonicalUrl(storyblok?.slug),
-                    title: storyblok?.content.seo_title,
-                    description: storyblok?.content.seo_description,
+                    title: storyblok?.content?.seo_title,
+                    description: storyblok?.content?.seo_description,
                 }}
             />
 
@@ -70,9 +70,9 @@ export default function PageIndex({ fallback }) {
                     {storyblok && (
                         <>
                             <h1 data-cy="title" className="lowercase">
-                                {storyblok?.content.title}
+                                {storyblok?.content?.title}
                             </h1>
-                            <div>{render(storyblok?.content.intro)}</div>
+                            <div>{render(storyblok?.content?.intro)}</div>
                             <p className="text-xs uppercase">
                                 Last Updated{" "}
                                 {dayjs(storyblok?.published_at).format("LL")}

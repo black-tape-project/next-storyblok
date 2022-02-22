@@ -7,11 +7,14 @@ export const SLUG_QUERY = gql`
             name
             slug
             full_slug
+            path
+            first_published_at
+            published_at
             content {
                 _editable
                 _uid
-                body
                 component
+                body
                 seo_description
                 seo_follow
                 seo_index

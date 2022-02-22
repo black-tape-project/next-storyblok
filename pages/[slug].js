@@ -31,15 +31,15 @@ export default function PageAbout({ variables, fallback }) {
             </NextHead>
 
             <NextSeo
-                title={storyblok?.content.seo_title}
-                description={storyblok?.content.seo_description}
+                title={storyblok?.content?.seo_title}
+                description={storyblok?.content?.seo_description}
                 canonical={generateCanonicalUrl(storyblok?.slug)}
-                noindex={storyblok?.content.seo_index}
-                nofollow={storyblok?.content.seo_follow}
+                noindex={storyblok?.content?.seo_index}
+                nofollow={storyblok?.content?.seo_follow}
                 openGraph={{
                     url: generateCanonicalUrl(storyblok?.slug),
-                    title: storyblok?.content.seo_title,
-                    description: storyblok?.content.seo_description,
+                    title: storyblok?.content?.seo_title,
+                    description: storyblok?.content?.seo_description,
                 }}
             />
 
