@@ -15,13 +15,17 @@ import dayjs from "dayjs";
 import { generateCanonicalUrl } from "../functions/url";
 
 export default function PageIndex({ fallback }) {
-    const { data: github, error: githubError } = useSWR("/api/github");
+    const { data: github, error: githubError } = useSWR("/api/githudb", {
+        fallbackData: fallback.github,
+    });
+
     const { data: storyblok, error: storyblokError } = useSWR(
-        "/api/storyblok/home"
+        "/api/storyblok/home",
+        { fallbackData: fallback.storyblok }
     );
 
     return (
-        <SWRConfig value={{ fallback }}>
+        <>
             <NextHead>
                 <link
                     rel="preload"
@@ -81,7 +85,7 @@ export default function PageIndex({ fallback }) {
                 {github && <AtomsCode content={github} />}
                 {storyblok && <AtomsCode content={storyblok} />}
             </div>
-        </SWRConfig>
+        </>
     );
 }
 
@@ -103,8 +107,8 @@ export async function getStaticProps() {
     return {
         props: {
             fallback: {
-                "/api/github": githubData,
-                "/api/storyblok/home": storyblokData,
+                github: githubData,
+                storyblok: storyblokData,
             },
         },
     };
