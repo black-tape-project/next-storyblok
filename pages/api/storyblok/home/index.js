@@ -15,7 +15,7 @@ export default async function handler(_request, response) {
         // return console.error(errors), response.status(400).json(errors);
     }
 
-    const storyblokHomData = data.TemplateindexItem;
+    const storyblokHomeData = data.TemplateindexItem;
 
-    return response.status(200).json(storyblokHomData);
+    return response.status(200).json(storyblokHomeData);
 }

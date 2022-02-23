@@ -1,6 +1,20 @@
 import { FiX, FiMinus, FiMaximize2 } from "react-icons/fi";
 
-export default function AtomsCode({ content }) {
+function codeMessage(content, error) {
+    if (error) {
+        <pre>{JSON.stringify(error, null, 2)}</pre>;
+    }
+
+    if (!content & !error) {
+        <pre>Unkown Error</pre>;
+    }
+
+    return <pre>{JSON.stringify(content, null, 2)}</pre>;
+}
+
+export default function AtomsCode({ content, error }) {
+    const message = codeMessage(content, error);
+
     return (
         <div data-testid="code" className="mb-4 shadow-2xl">
             <div className="flex rounded-t-lg border border-b border-gray-900 bg-gray-800 py-3 px-4">
@@ -15,7 +29,7 @@ export default function AtomsCode({ content }) {
                 </div>
             </div>
             <code className="block max-h-80 overflow-scroll rounded-b-lg bg-gray-700 p-4 text-base text-white shadow-inner">
-                <pre>{JSON.stringify(content, null, 2)}</pre>
+                {message}
             </code>
         </div>
     );

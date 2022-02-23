@@ -24,8 +24,8 @@ function PageError({ statusCode }) {
     );
 }
 
-PageError.getLayout = function getLayout(Page) {
-    return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
+PageError.getLayout = function getLayout(page) {
+    return <LayoutTemplateDefault>{page}</LayoutTemplateDefault>;
 };
 
 PageError.getInitialProps = ({ res, err }) => {

@@ -23,3 +23,16 @@ export const SLUG_QUERY = gql`
         }
     }
 `;
+
+export const SLUG_PATHS_QUERY = gql`
+    query data {
+        TemplatedefaultItems {
+            items {
+                id
+                name
+                slug
+                full_slug
+            }
+        }
+    }
+`;

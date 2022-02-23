@@ -74,8 +74,8 @@ export default function PageAbout({ variables, fallback }) {
     );
 }
 
-PageAbout.getLayout = function getLayout(Page) {
-    return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
+PageAbout.getLayout = function getLayout(page) {
+    return <LayoutTemplateDefault>{page}</LayoutTemplateDefault>;
 };
 
 export async function getServerSideProps({ params }) {

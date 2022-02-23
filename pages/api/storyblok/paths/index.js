@@ -1,13 +1,10 @@
 import { storyblokConnection } from "../../../../utilities/api/storyblok";
 
-import { SLUG_QUERY } from "../../../../graphql/storyblok/slug";
+import { SLUG_PATHS_QUERY } from "../../../../graphql/storyblok/slug";
 
-export default async function handler(request, response) {
-    const slug = request.query;
-
+export default async function handler(_request, response) {
     const { data, errors } = await storyblokConnection.rawRequest(
-        SLUG_QUERY,
-        slug
+        SLUG_PATHS_QUERY
     );
 
     response.setHeader(
@@ -20,7 +17,7 @@ export default async function handler(request, response) {
         // return console.error(errors), response.status(400).json(errors);
     }
 
-    const storyblokSlugData = data.TemplatedefaultItem;
+    const storyblokSlugPathsData = data.TemplatedefaultItems;
 
-    return response.status(200).json(storyblokSlugData);
+    return response.status(200).json(storyblokSlugPathsData);
 }

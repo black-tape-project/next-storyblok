@@ -1,7 +1,7 @@
 import NextHead from "next/head";
 import NextLink from "next/link";
 
-import { NextSeo } from "next-seo";
+import { NextSeo, SocialProfileJsonLd } from "next-seo";
 
 import useSWR from "swr";
 
@@ -59,15 +59,15 @@ export default function PageIndex({ fallback }) {
                 }}
             />
 
-            {/* <SocialProfileJsonLd
+            <SocialProfileJsonLd
                 type={process.env.NEXT_PUBLIC_SCHEMA_SITE_TYPE}
                 name={process.env.NEXT_PUBLIC_SCHEMA_SITE_NAME}
-                url={process.env.NEXT_PUBLIC_SCHEMA_SITE_URL}
+                url={process.env.NEXT_PUBLIC_APP_URL}
                 sameAs={[
                     process.env.NEXT_PUBLIC_SOCIAL_TWITCH_URL,
                     process.env.NEXT_PUBLIC_SOCIAL_TWITTER_URL,
                 ]}
-            /> */}
+            />
 
             <div className="container">
                 <div className="my-4 text-center">
@@ -87,19 +87,21 @@ export default function PageIndex({ fallback }) {
                         <a>About</a>
                     </NextLink>
                 </div>
-                {github && <AtomsCode content={github} />}
-                {storyblok && <AtomsCode content={storyblok} />}
+                {github && <AtomsCode content={github} error={githubError} />}
+                {storyblok && (
+                    <AtomsCode content={storyblok} error={storyblokError} />
+                )}
                 <StoryblokComponentUtility blok={storyblok.content} />
             </div>
         </>
     );
 }
 
-PageIndex.getLayout = function getLayout(Page) {
-    return <LayoutTemplateDefault>{Page}</LayoutTemplateDefault>;
+PageIndex.getLayout = function getLayout(page) {
+    return <LayoutTemplateDefault>{page}</LayoutTemplateDefault>;
 };
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
     const github = await fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/github");
 
     const githubData = await github.json();
@@ -120,7 +122,7 @@ export async function getStaticProps() {
             },
         };
     } catch (err) {
-        // TODO (Change to 500 error page?)
+        // TODO (Change to 500 error page? or Better.)
         return {
             notFound: true,
         };
