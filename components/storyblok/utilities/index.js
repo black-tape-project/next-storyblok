@@ -22,9 +22,9 @@ const Components = {
 
 export default function StoryblokComponentUtility({ blok }) {
     if (typeof Components[blok.component] !== "undefined") {
-        const Component = Components[blok.component];
+        const StoryblokComponent = Components[blok.component];
 
-        return <Component blok={blok} key={blok._uid} />;
+        return <StoryblokComponent blok={blok} key={blok._uid} />;
     }
 
     return <StoryblokUtilityPlaceholder blok={blok.component} />;
