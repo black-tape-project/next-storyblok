@@ -9,7 +9,10 @@ export const storyblokConnection = new GraphQLClient(
     {
         headers: {
             token: process.env.STORYBLOK_API_TOKEN,
-            version: process.env.STORYBLOK_API_VERSION,
+            // TODO (Find way to push version to the api version based up preview.)
+            // - May require an api call method change.
+            // ! Running of "draft" for now.
+            version: "draft",
         },
     }
 );
