@@ -7,18 +7,18 @@
 
 */
 
-// import StoryblokEditable from "storyblok-react";
+import { sbEditable } from "@storyblok/storyblok-editable";
 
 import { render } from "storyblok-rich-text-react-renderer";
 
 export default function StoryblokContentRichtext({ blok }) {
     return (
-        // <StoryblokEditable content={blok} key={blok._uid}>
-        <div className="content">
-            <div className="last:mb-0" data-cy="richtext">
-                {render(blok.content)}
+        <div {...sbEditable(blok)}>
+            <div className="content">
+                <div className="last:mb-0" data-cy="richtext">
+                    {render(blok.content)}
+                </div>
             </div>
         </div>
-        // </StoryblokEditable>
     );
 }

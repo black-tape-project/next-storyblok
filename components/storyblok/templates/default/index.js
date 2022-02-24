@@ -7,20 +7,18 @@
 
 */
 
-// import StoryblokEditable from "storyblok-react";
+import { sbEditable } from "@storyblok/storyblok-editable";
 
 import StoryblokComponentUtility from "../../utilities";
 
 export default function StoryblokTemplatesDefault({ blok }) {
     return (
-        <>
-            {/* <StoryblokEditable content={blok}> */}
+        <div {...sbEditable(blok)}>
             {blok.body
                 ? blok.body.map((blok) => (
                       <StoryblokComponentUtility blok={blok} key={blok._uid} />
                   ))
                 : null}
-            {/* </StoryblokEditable> */}
-        </>
+        </div>
     );
 }

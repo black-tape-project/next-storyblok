@@ -9,6 +9,8 @@ import { render } from "storyblok-rich-text-react-renderer";
 
 import dayjs from "dayjs";
 
+import { useStoryblok } from "../utilities/api/storyblok";
+
 import AtomsCode from "../components/atoms/code";
 
 import LayoutTemplateDefault from "../components/templates/default";
@@ -17,7 +19,9 @@ import StoryblokComponentUtility from "../components/storyblok/utilities";
 
 import { generateCanonicalUrl } from "../functions/url";
 
-export default function PageIndex({ fallback }) {
+export default function PageIndex({ preview, fallback }) {
+    const enableBridge = preview;
+
     const { data: github, error: githubError } = useSWR("/api/github", {
         fallbackData: fallback.github,
     });
@@ -26,6 +30,10 @@ export default function PageIndex({ fallback }) {
         "/api/storyblok/home",
         { fallbackData: fallback.storyblok }
     );
+
+    let story = useStoryblok(storyblok, enableBridge);
+
+    console.log("preview", preview);
 
     return (
         <>
@@ -47,15 +55,15 @@ export default function PageIndex({ fallback }) {
             </NextHead>
 
             <NextSeo
-                title={storyblok?.content?.seo_title}
-                description={storyblok?.content?.seo_description}
-                canonical={generateCanonicalUrl(storyblok?.slug)}
-                noindex={storyblok?.content?.seo_index}
-                nofollow={storyblok?.content?.seo_follow}
+                title={story?.content?.seo_title}
+                description={story?.content?.seo_description}
+                canonical={generateCanonicalUrl(story?.slug)}
+                noindex={story?.content?.seo_index}
+                nofollow={story?.content?.seo_follow}
                 openGraph={{
-                    url: generateCanonicalUrl(storyblok?.slug),
-                    title: storyblok?.content?.seo_title,
-                    description: storyblok?.content?.seo_description,
+                    url: generateCanonicalUrl(story?.slug),
+                    title: story?.content?.seo_title,
+                    description: story?.content?.seo_description,
                 }}
             />
 
@@ -74,12 +82,12 @@ export default function PageIndex({ fallback }) {
                     {storyblok && (
                         <>
                             <h1 data-cy="title" className="lowercase">
-                                {storyblok?.content?.title}
+                                {story?.content?.title}
                             </h1>
-                            <div>{render(storyblok?.content?.intro)}</div>
+                            <div>{render(story?.content?.intro)}</div>
                             <p className="text-xs uppercase">
                                 Last Updated{" "}
-                                {dayjs(storyblok?.published_at).format("LL")}
+                                {dayjs(story?.published_at).format("LL")}
                             </p>
                         </>
                     )}
@@ -89,9 +97,9 @@ export default function PageIndex({ fallback }) {
                 </div>
                 {github && <AtomsCode content={github} error={githubError} />}
                 {storyblok && (
-                    <AtomsCode content={storyblok} error={storyblokError} />
+                    <AtomsCode content={story} error={storyblokError} />
                 )}
-                <StoryblokComponentUtility blok={storyblok.content} />
+                <StoryblokComponentUtility blok={story.content} />
             </div>
         </>
     );
@@ -101,7 +109,7 @@ PageIndex.getLayout = function getLayout(page) {
     return <LayoutTemplateDefault>{page}</LayoutTemplateDefault>;
 };
 
-export async function getServerSideProps() {
+export async function getServerSideProps({ preview = false }) {
     const github = await fetch(process.env.NEXT_PUBLIC_APP_URL + "/api/github");
 
     const githubData = await github.json();
@@ -112,9 +120,16 @@ export async function getServerSideProps() {
 
     const storyblokData = await storyblok.json();
 
+    console.log("preview false", preview);
+
+    if (preview) {
+        console.log("preview true", preview);
+    }
+
     try {
         return {
             props: {
+                preview,
                 fallback: {
                     github: githubData,
                     storyblok: storyblokData,

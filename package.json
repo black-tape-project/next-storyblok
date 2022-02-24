@@ -19,6 +19,7 @@
         "test:start": "start-server-and-test next:dev 3000 cypress:headless"
     },
     "dependencies": {
+        "@storyblok/storyblok-editable": "^1.1.0",
         "core-js": "^3.21.1",
         "dayjs": "^1.10.7",
         "graphql": "^16.3.0",
@@ -35,6 +36,7 @@
     "devDependencies": {
         "@babel/core": "^7.17.5",
         "@mdx-js/react": "^1.6.22",
+        "@storyblok/js": "^1.0.3",
         "@storybook/addon-a11y": "^6.4.19",
         "@storybook/addon-actions": "^6.4.19",
         "@storybook/addon-docs": "^6.4.19",
