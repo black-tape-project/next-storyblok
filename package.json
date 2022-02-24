@@ -1,7 +1,7 @@
 {
     "name": "next-storyblok",
     "description": "Starter Kit",
-    "version": "0.1.4",
+    "version": "0.1.10",
     "license": "MIT",
     "scripts": {
         "cypress:headless": "cypress run",
