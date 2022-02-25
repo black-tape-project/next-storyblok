@@ -31,9 +31,7 @@ export default function PageIndex({ preview, fallback }) {
     if (preview) {
         storyblokURL = "/api/storyblok/home?version=draft";
     } else {
-        storyblokURL =
-            "/api/storyblok/home?version=" +
-            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION;
+        storyblokURL = "/api/storyblok/home?version=published";
     }
 
     const { data: storyblok, error: storyblokError } = useSWR(storyblokURL, {
@@ -121,10 +119,16 @@ export async function getServerSideProps({ preview = false }) {
 
     const githubData = await github.json();
 
+    let storyblokURL;
+
+    if (preview) {
+        storyblokURL = "/api/storyblok/home?version=draft";
+    } else {
+        storyblokURL = "/api/storyblok/home?version=published";
+    }
+
     const storyblok = await fetch(
-        process.env.NEXT_PUBLIC_APP_URL +
-            "/api/storyblok/home?version=" +
-            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION
+        process.env.NEXT_PUBLIC_APP_URL + storyblokURL
     );
 
     const storyblokData = await storyblok.json();

@@ -6,9 +6,13 @@ export default async function preview(req, res) {
 
     // Check the secret and next parameters
     // This secret should only be known to this API route and the CMS
-    if (req.query.secret !== process.env.STORYBLOK_API_TOKEN) {
+    if (
+        req.query.secret !== process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN_PREVIEW
+    ) {
         return res.status(401).json({ message: "Invalid token" });
     }
+
+    console.log(req.query.secret);
 
     // Enable Preview Mode by setting the cookies
     res.setPreviewData({});

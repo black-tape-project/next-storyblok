@@ -24,13 +24,10 @@ export default function PageAbout({ preview, fallback, variables }) {
 
     if (preview) {
         storyblokURL =
-            "/api/storyblok/slug/" + variables.slug + "?version=published";
+            "/api/storyblok/slug/" + variables.slug + "?version=draft";
     } else {
         storyblokURL =
-            "/api/storyblok/slug/" +
-            variables.slug +
-            "?version=" +
-            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION;
+            "/api/storyblok/slug/" + variables.slug + "?version=published";
     }
 
     const { data: storyblok, error: storyblokError } = useSWR(storyblokURL, {
@@ -101,10 +98,18 @@ export async function getServerSideProps({ preview = false, params }) {
         slug: paramSlug,
     };
 
+    let storyblokURL;
+
+    if (preview) {
+        storyblokURL =
+            "/api/storyblok/slug/" + variables.slug + "?version=draft";
+    } else {
+        storyblokURL =
+            "/api/storyblok/slug/" + variables.slug + "?version=published";
+    }
+
     const storyblok = await fetch(
-        process.env.NEXT_PUBLIC_APP_URL +
-            "/api/storyblok/slug/" +
-            variables.slug
+        process.env.NEXT_PUBLIC_APP_URL + storyblokURL
     );
 
     const storyblokData = await storyblok.json();
