@@ -37,6 +37,8 @@ function NextApp({ Component, pageProps }) {
     return (
         <SWRConfig
             value={{
+                revalidateOnFocus: true,
+                focusThrottleInterval: 300000,
                 fetcher: (resource, init) =>
                     fetch(resource, init).then((response) => response.json()),
             }}
