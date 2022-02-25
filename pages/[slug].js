@@ -20,10 +20,22 @@ import { generateCanonicalUrl } from "../functions/url";
 export default function PageAbout({ preview, fallback, variables }) {
     const enableBridge = preview;
 
-    const { data: storyblok, error: storyblokError } = useSWR(
-        "/api/storyblok/slug/" + variables.slug,
-        { fallbackData: fallback.storyblok }
-    );
+    let storyblokURL;
+
+    if (preview) {
+        storyblokURL =
+            "/api/storyblok/slug/" + variables.slug + "?version=published";
+    } else {
+        storyblokURL =
+            "/api/storyblok/slug/" +
+            variables.slug +
+            "?version=" +
+            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION;
+    }
+
+    const { data: storyblok, error: storyblokError } = useSWR(storyblokURL, {
+        fallbackData: fallback.storyblok,
+    });
 
     let story = useStoryblok(storyblok, enableBridge);
 
@@ -34,11 +46,7 @@ export default function PageAbout({ preview, fallback, variables }) {
             <NextHead>
                 <link
                     rel="preload"
-                    href={
-                        process.env.NEXT_PUBLIC_APP_URL +
-                        "/api/storyblok/slug/" +
-                        variables.slug
-                    }
+                    href={process.env.NEXT_PUBLIC_APP_URL + storyblokURL}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
@@ -102,10 +110,6 @@ export async function getServerSideProps({ preview = false, params }) {
     const storyblokData = await storyblok.json();
 
     console.log("preview false", preview);
-
-    if (preview) {
-        console.log("preview true", preview);
-    }
 
     try {
         return {

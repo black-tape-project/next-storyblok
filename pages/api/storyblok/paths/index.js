@@ -2,10 +2,10 @@ import { storyblokConnection } from "../../../../utilities/api/storyblok";
 
 import { SLUG_PATHS_QUERY } from "../../../../graphql/storyblok/slug";
 
-export default async function handler(_req, res) {
-    const { data, errors } = await storyblokConnection.rawRequest(
-        SLUG_PATHS_QUERY
-    );
+export default async function handler(req, res) {
+    const { data, errors } = await storyblokConnection(
+        req.query.version
+    ).rawRequest(SLUG_PATHS_QUERY);
 
     res.setHeader(
         "Cache-Control",

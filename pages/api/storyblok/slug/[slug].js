@@ -5,10 +5,9 @@ import { SLUG_QUERY } from "../../../../graphql/storyblok/slug";
 export default async function handler(req, res) {
     const slug = req.query;
 
-    const { data, errors } = await storyblokConnection.rawRequest(
-        SLUG_QUERY,
-        slug
-    );
+    const { data, errors } = await storyblokConnection(
+        req.query.version
+    ).rawRequest(SLUG_QUERY, slug);
 
     res.setHeader(
         "Cache-Control",

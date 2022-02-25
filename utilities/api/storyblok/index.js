@@ -4,18 +4,13 @@ import { GraphQLClient } from "graphql-request";
 
 import { storyblokInit, useStoryblokBridge } from "@storyblok/js";
 
-export const storyblokConnection = new GraphQLClient(
-    process.env.STORYBLOK_API_URL,
-    {
+export const storyblokConnection = (version) =>
+    new GraphQLClient(process.env.STORYBLOK_API_URL, {
         headers: {
             token: process.env.STORYBLOK_API_TOKEN,
-            // TODO (Find way to push version to the api version based up preview.)
-            // - May require an api call method change.
-            // ! Running of "draft" for now.
-            version: "draft",
+            version: version,
         },
-    }
-);
+    });
 
 export function useStoryblok(originalStory, preview) {
     let [story, setStory] = useState(originalStory);

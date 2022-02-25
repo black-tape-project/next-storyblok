@@ -26,14 +26,23 @@ export default function PageIndex({ preview, fallback }) {
         fallbackData: fallback.github,
     });
 
-    const { data: storyblok, error: storyblokError } = useSWR(
-        "/api/storyblok/home",
-        { fallbackData: fallback.storyblok }
-    );
+    let storyblokURL;
+
+    if (preview) {
+        storyblokURL = "/api/storyblok/home?version=draft";
+    } else {
+        storyblokURL =
+            "/api/storyblok/home?version=" +
+            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION;
+    }
+
+    const { data: storyblok, error: storyblokError } = useSWR(storyblokURL, {
+        fallbackData: fallback.storyblok,
+    });
 
     let story = useStoryblok(storyblok, enableBridge);
 
-    console.log("preview", preview);
+    console.log("client preview", preview);
 
     return (
         <>
@@ -46,9 +55,7 @@ export default function PageIndex({ preview, fallback }) {
                 ></link>
                 <link
                     rel="preload"
-                    href={
-                        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
-                    }
+                    href={process.env.NEXT_PUBLIC_APP_URL + storyblokURL}
                     as="fetch"
                     crossOrigin="anonymous"
                 ></link>
@@ -115,16 +122,14 @@ export async function getServerSideProps({ preview = false }) {
     const githubData = await github.json();
 
     const storyblok = await fetch(
-        process.env.NEXT_PUBLIC_APP_URL + "/api/storyblok/home"
+        process.env.NEXT_PUBLIC_APP_URL +
+            "/api/storyblok/home?version=" +
+            process.env.NEXT_PUBLIC_STORYBLOK_API_VERSION
     );
 
     const storyblokData = await storyblok.json();
 
-    console.log("preview false", preview);
-
-    if (preview) {
-        console.log("preview true", preview);
-    }
+    console.log("server preview", preview);
 
     try {
         return {
