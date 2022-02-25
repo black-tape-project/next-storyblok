@@ -5,10 +5,10 @@ import { GraphQLClient } from "graphql-request";
 import { storyblokInit, useStoryblokBridge } from "@storyblok/js";
 
 export const storyblokConnection = (version) => {
-    let storyblokToken = process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN_PREVIEW;
+    let storyblokToken = process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN_PUBLIC;
 
-    if (version == "published") {
-        storyblokToken = process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN_PUBLIC;
+    if (version == "draft") {
+        storyblokToken = process.env.NEXT_PUBLIC_STORYBLOK_API_TOKEN_PREVIEW;
     }
 
     return new GraphQLClient(process.env.STORYBLOK_API_URL, {
